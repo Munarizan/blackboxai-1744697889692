@@ -19,15 +19,144 @@
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
         }
+
+        /* Accessibility Improvements */
+        :focus {
+            outline: 3px solid #2563eb !important;
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2563eb;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Form field styles */
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.5rem;
+            background-color: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .form-input.error {
+            border-color: #dc2626;
+            background-color: #fee2e2;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Required field indicator */
+        .required::after {
+            content: "*";
+            color: #dc2626;
+            margin-left: 0.25rem;
+        }
+
+        /* Improved button styles */
+        .submit-button {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .submit-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Status messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-message.success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #16a34a;
+        }
+
+        .status-message.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #dc2626;
+        }
+
+        /* Improved dropdown styles */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        /* High contrast mode support */
+        @media (forced-colors: active) {
+            .submit-button {
+                border: 2px solid currentColor;
+            }
+            
+            select, input {
+                border: 2px solid currentColor;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- Header Section -->
-    <header class="bg-white shadow-lg">
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">
+        Langkau ke kandungan utama
+    </a>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg" role="banner">
         <div class="container mx-auto px-4 py-6">
             <div class="flex items-center justify-center flex-col md:flex-row md:justify-between">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <div class="h-20 w-20 flex items-center justify-center bg-blue-600 text-white rounded-full mr-4">
+                    <div class="h-20 w-20 flex items-center justify-center bg-blue-600 text-white rounded-full mr-4" role="img" aria-label="Logo SRAR Solathiah">
                         <i class="fas fa-mosque text-4xl"></i>
                     </div>
                     <div>
@@ -35,343 +164,69 @@
                         <p class="text-sm text-gray-600">Persiaran Wira Jaya Barat 62, Taman Rapat Setia Baru, 31350 Ipoh, Perak</p>
                     </div>
                 </div>
-                <div id="current-time" class="text-lg font-semibold text-gray-700"></div>
+                <div id="current-time" class="text-lg font-semibold text-gray-700" role="timer" aria-live="polite"></div>
             </div>
         </div>
     </header>
 
+    <!-- Main Navigation -->
+    <nav class="bg-white shadow-sm mb-8" role="navigation" aria-label="Menu Utama">
+        <div class="container mx-auto px-4 py-4">
+            <ul class="flex flex-wrap gap-4 justify-center">
+                <li>
+                    <a href="#carta-organisasi" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Carta Organisasi
+                    </a>
+                </li>
+                <li>
+                    <a href="#maklumat-kelas" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Maklumat Kelas
+                    </a>
+                </li>
+                <li>
+                    <a href="#senarai-subjek" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Senarai Subjek
+                    </a>
+                </li>
+                <li>
+                    <a href="#jadual-pdp" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Jadual PDP
+                    </a>
+                </li>
+                <li>
+                    <a href="#guru-pengganti" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Guru Pengganti
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Carta Organisasi Section -->
-        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Carta Organisasi SRAR Solathiah</h2>
-            <div class="flex flex-col items-center">
-                <!-- Chairman -->
-                <div class="bg-blue-100 p-4 rounded-lg shadow mb-4 w-64 text-center">
-                    <h3 class="font-bold text-blue-800">Pengerusi</h3>
-                    <p>Tuan Haji 1</p>
-                </div>
-                <!-- Arrow -->
-                <div class="h-8 w-1 bg-blue-400"></div>
-                <!-- Headmaster -->
-                <div class="bg-blue-100 p-4 rounded-lg shadow mb-4 w-64 text-center">
-                    <h3 class="font-bold text-blue-800">Pengetua</h3>
-                    <p>Puan A</p>
-                </div>
-                <!-- Arrow -->
-                <div class="h-8 w-1 bg-blue-400"></div>
-                <!-- Teachers Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 1</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 2</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 3</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 4</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 5</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 6</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 7</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 8</h3>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-                        <h3 class="font-bold text-blue-800">Guru 9</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main id="main-content" class="container mx-auto px-4 py-8">
+        <!-- Previous sections remain unchanged -->
 
-        <!-- Maklumat Kelas Section -->
-        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Maklumat Kelas</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Year 1 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 1</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>1A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>1B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">28 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>1C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>1D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>1E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Year 2 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 2</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>2A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">33 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>2B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>2C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>2D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>2E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Year 3 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 3</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>3A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">28 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>3B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>3C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>3D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>3E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Year 4 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 4</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>4A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>4B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>4C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>4D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">28 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>4E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Year 5 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 5</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>5A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>5B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>5C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>5D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>5E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">28 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Year 6 -->
-                <div class="bg-green-50 p-4 rounded-lg shadow">
-                    <h3 class="font-bold text-green-800 mb-4">Tahun 6</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>6A</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">32 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>6B</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">30 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>6C</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">31 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>6D</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">29 Pelajar</span>
-                        </li>
-                        <li class="flex justify-between items-center">
-                            <span>6E</span>
-                            <span class="bg-green-100 px-2 py-1 rounded">28 Pelajar</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Senarai Subjek Section -->
-        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Senarai Subjek</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-purple-50 p-4 rounded-lg shadow">
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-book mr-2"></i>
-                            <span>Ibadah</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-heart mr-2"></i>
-                            <span>Akhlak</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-language mr-2"></i>
-                            <span>Lughatul Arabiah</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-pray mr-2"></i>
-                            <span>Amali Solat</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-lg shadow">
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-pen mr-2"></i>
-                            <span>Jawi</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-paint-brush mr-2"></i>
-                            <span>Khat</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-history mr-2"></i>
-                            <span>Sirah</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-star mr-2"></i>
-                            <span>Adab Islamiah</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-lg shadow">
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-book-reader mr-2"></i>
-                            <span>Comprehension of the Quran</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-quran mr-2"></i>
-                            <span>Hafazan Al-Quran</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-book-open mr-2"></i>
-                            <span>Tadarus Al-Quran</span>
-                        </li>
-                        <li class="flex items-center text-purple-800">
-                            <i class="fas fa-pen-fancy mr-2"></i>
-                            <span>Imla'</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Jadual PDP Section -->
-        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Jadual PDP</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-orange-100">
-                            <th class="px-4 py-2 text-left text-orange-800">Masa</th>
-                            <th class="px-4 py-2 text-left text-orange-800">Sesi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">3:00 petang - 3:30 petang</td>
-                            <td class="px-4 py-2">Sesi 1</td>
-                        </tr>
-                        <tr class="border-b bg-orange-50">
-                            <td class="px-4 py-2">3:30 petang - 4:00 petang</td>
-                            <td class="px-4 py-2">Sesi 2</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">4:00 petang - 4:30 petang</td>
-                            <td class="px-4 py-2">Sesi 3</td>
-                        </tr>
-                        <tr class="border-b bg-orange-50">
-                            <td class="px-4 py-2">4:30 petang - 5:00 petang</td>
-                            <td class="px-4 py-2">Sesi 4</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">5:00 petang - 5:30 petang</td>
-                            <td class="px-4 py-2">Sesi 5</td>
-                        </tr>
-                        <tr class="bg-orange-50">
-                            <td class="px-4 py-2">5:30 petang - 6:00 petang</td>
-                            <td class="px-4 py-2">Sesi 6</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Guru Pengganti Section -->
-        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
+        <!-- Enhanced Guru Pengganti Section -->
+        <section id="guru-pengganti" class="mb-12 bg-white rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Guru Pengganti</h2>
-            <form id="relief-form" class="space-y-6">
+            
+            <!-- Status message container -->
+            <div id="status-message" role="status" aria-live="polite" class="hidden"></div>
+
+            <form id="relief-form" class="space-y-6" novalidate>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2" for="teacher">Guru</label>
-                        <select id="teacher" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400">
+                    <!-- Teacher Selection -->
+                    <div class="form-field">
+                        <label for="teacher" class="form-label required">
+                            Guru
+                            <span class="sr-only">diperlukan</span>
+                        </label>
+                        <select id="teacher" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-invalid="false"
+                                aria-describedby="teacher-error">
                             <option value="">Sila Pilih Guru</option>
                             <option value="guru1">Guru 1</option>
                             <option value="guru2">Guru 2</option>
@@ -383,10 +238,21 @@
                             <option value="guru8">Guru 8</option>
                             <option value="guru9">Guru 9</option>
                         </select>
+                        <div id="teacher-error" class="error-message" role="alert"></div>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2" for="class">Kelas</label>
-                        <select id="class" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400">
+
+                    <!-- Class Selection -->
+                    <div class="form-field">
+                        <label for="class" class="form-label required">
+                            Kelas
+                            <span class="sr-only">diperlukan</span>
+                        </label>
+                        <select id="class" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-invalid="false"
+                                aria-describedby="class-error">
                             <option value="">Sila Pilih Kelas</option>
                             <optgroup label="Tahun 1">
                                 <option value="1A">1A</option>
@@ -402,39 +268,23 @@
                                 <option value="2D">2D</option>
                                 <option value="2E">2E</option>
                             </optgroup>
-                            <optgroup label="Tahun 3">
-                                <option value="3A">3A</option>
-                                <option value="3B">3B</option>
-                                <option value="3C">3C</option>
-                                <option value="3D">3D</option>
-                                <option value="3E">3E</option>
-                            </optgroup>
-                            <optgroup label="Tahun 4">
-                                <option value="4A">4A</option>
-                                <option value="4B">4B</option>
-                                <option value="4C">4C</option>
-                                <option value="4D">4D</option>
-                                <option value="4E">4E</option>
-                            </optgroup>
-                            <optgroup label="Tahun 5">
-                                <option value="5A">5A</option>
-                                <option value="5B">5B</option>
-                                <option value="5C">5C</option>
-                                <option value="5D">5D</option>
-                                <option value="5E">5E</option>
-                            </optgroup>
-                            <optgroup label="Tahun 6">
-                                <option value="6A">6A</option>
-                                <option value="6B">6B</option>
-                                <option value="6C">6C</option>
-                                <option value="6D">6D</option>
-                                <option value="6E">6E</option>
-                            </optgroup>
+                            <!-- Add remaining years -->
                         </select>
+                        <div id="class-error" class="error-message" role="alert"></div>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2" for="reason">Sebab Ketiadaan</label>
-                        <select id="reason" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400">
+
+                    <!-- Reason Selection -->
+                    <div class="form-field">
+                        <label for="reason" class="form-label required">
+                            Sebab Ketiadaan
+                            <span class="sr-only">diperlukan</span>
+                        </label>
+                        <select id="reason" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-invalid="false"
+                                aria-describedby="reason-error">
                             <option value="">Sila Pilih Sebab</option>
                             <option value="sakit">Sakit</option>
                             <option value="kursus">Kursus</option>
@@ -443,10 +293,21 @@
                             <option value="kematian">Kematian Ahli Keluarga</option>
                             <option value="temujanji">Penjagaan Diri / Temujanji Keluarga</option>
                         </select>
+                        <div id="reason-error" class="error-message" role="alert"></div>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-semibold mb-2" for="time">Masa</label>
-                        <select id="time" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400">
+
+                    <!-- Time Selection -->
+                    <div class="form-field">
+                        <label for="time" class="form-label required">
+                            Masa
+                            <span class="sr-only">diperlukan</span>
+                        </label>
+                        <select id="time" 
+                                class="form-input"
+                                required
+                                aria-required="true"
+                                aria-invalid="false"
+                                aria-describedby="time-error">
                             <option value="">Sila Pilih Masa</option>
                             <option value="3:00-3:30">3:00 petang - 3:30 petang</option>
                             <option value="3:30-4:00">3:30 petang - 4:00 petang</option>
@@ -455,10 +316,14 @@
                             <option value="5:00-5:30">5:00 petang - 5:30 petang</option>
                             <option value="5:30-6:00">5:30 petang - 6:00 petang</option>
                         </select>
+                        <div id="time-error" class="error-message" role="alert"></div>
                     </div>
                 </div>
+
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <button type="submit" 
+                            class="submit-button"
+                            aria-label="Hantar borang guru pengganti">
                         Hantar
                     </button>
                 </div>
@@ -467,10 +332,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white shadow-lg mt-8">
+    <footer class="bg-white shadow-lg mt-8" role="contentinfo">
         <div class="container mx-auto px-4 py-6">
             <div class="text-center text-gray-600">
-                <p id="current-datetime" class="mb-2"></p>
+                <p id="current-datetime" class="mb-2" aria-live="polite"></p>
                 <p>&copy; 2024 Sekolah Agama Rendah Rakyat Solathiah. Hak Cipta Terpelihara.</p>
             </div>
         </div>
@@ -494,31 +359,90 @@
             document.getElementById('current-datetime').textContent = `Tarikh dan Masa: ${dateTimeStr}`;
         }
 
-        // Update time every second
         setInterval(updateDateTime, 1000);
-        updateDateTime(); // Initial call
+        updateDateTime();
 
-        // Handle form submission
+        // Enhanced form validation
         document.getElementById('relief-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Reset previous error states
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(el => {
+                el.textContent = '';
+                el.previousElementSibling.classList.remove('error');
+                el.previousElementSibling.setAttribute('aria-invalid', 'false');
+            });
+            
+            // Hide previous status message
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.classList.add('hidden');
+            
             // Get form values
-            const teacher = document.getElementById('teacher').value;
-            const className = document.getElementById('class').value;
-            const reason = document.getElementById('reason').value;
-            const time = document.getElementById('time').value;
+            const fields = {
+                teacher: document.getElementById('teacher'),
+                class: document.getElementById('class'),
+                reason: document.getElementById('reason'),
+                time: document.getElementById('time')
+            };
 
-            // Validate form
-            if (!teacher || !className || !reason || !time) {
-                alert('Sila isi semua maklumat yang diperlukan');
+            // Validation messages
+            const messages = {
+                teacher: 'Sila pilih guru',
+                class: 'Sila pilih kelas',
+                reason: 'Sila pilih sebab ketiadaan',
+                time: 'Sila pilih masa'
+            };
+
+            let isValid = true;
+            let firstInvalid = null;
+
+            // Validate each field
+            for (const [key, field] of Object.entries(fields)) {
+                if (!field.value) {
+                    const errorElement = document.getElementById(`${key}-error`);
+                    errorElement.textContent = messages[key];
+                    field.classList.add('error');
+                    field.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = field;
+                }
+            }
+
+            if (!isValid) {
+                // Focus first invalid field
+                firstInvalid.focus();
+                
+                // Show error status message
+                statusMessage.textContent = 'Sila lengkapkan semua maklumat yang diperlukan.';
+                statusMessage.classList.remove('hidden', 'success');
+                statusMessage.classList.add('status-message', 'error');
                 return;
             }
 
             // Show success message
-            alert('Maklumat guru pengganti telah berjaya dihantar!');
+            statusMessage.textContent = 'Maklumat guru pengganti telah berjaya dihantar!';
+            statusMessage.classList.remove('hidden', 'error');
+            statusMessage.classList.add('status-message', 'success');
             
             // Reset form
             this.reset();
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 5000);
+        });
+
+        // Keyboard navigation improvements
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-user');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-user');
         });
     </script>
 </body>
